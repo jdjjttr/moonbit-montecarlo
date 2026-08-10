@@ -1,0 +1,72 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/stochastic"
+
+import {
+  "jdjjttr/montecarlo/lib/core",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub struct CIRProcess {
+  r0 : Double
+  a : Double
+  b : Double
+  sigma : Double
+}
+pub fn CIRProcess::feller_ratio(Self) -> Double
+pub fn CIRProcess::generate_path(Self, Array[Double], @core.RngEngine) -> @core.SimPath
+pub fn CIRProcess::new(Double, Double, Double, Double) -> Self
+pub fn CIRProcess::step(Self, Double, Double, Double) -> Double
+
+pub struct GBMProcess {
+  s0 : Double
+  mu : Double
+  sigma : Double
+}
+pub fn GBMProcess::generate_matrix(Self, Int, Array[Double], @core.RngEngine) -> @core.PathMatrix
+pub fn GBMProcess::generate_path(Self, Array[Double], @core.RngEngine) -> @core.SimPath
+pub fn GBMProcess::new(Double, Double, Double) -> Self
+pub fn GBMProcess::step(Self, Double, Double, Double) -> Double
+
+pub struct JumpDiffusionProcess {
+  s0 : Double
+  mu : Double
+  sigma : Double
+  lambda_jump : Double
+  mu_jump : Double
+  sigma_jump : Double
+}
+pub fn JumpDiffusionProcess::expected_jump_multiplier(Self) -> Double
+pub fn JumpDiffusionProcess::generate_path(Self, Array[Double], @core.RngEngine) -> @core.SimPath
+pub fn JumpDiffusionProcess::new(Double, Double, Double, Double, Double, Double) -> Self
+pub fn JumpDiffusionProcess::step(Self, Double, Double, @core.RngEngine) -> Double
+
+pub struct OUProcess {
+  x0 : Double
+  theta : Double
+  mu : Double
+  sigma : Double
+}
+pub fn OUProcess::generate_path(Self, Array[Double], @core.RngEngine) -> @core.SimPath
+pub fn OUProcess::new(Double, Double, Double, Double) -> Self
+pub fn OUProcess::stationary_variance(Self) -> Double
+pub fn OUProcess::step(Self, Double, Double, Double) -> Double
+
+pub struct VasicekProcess {
+  r0 : Double
+  a : Double
+  b : Double
+  sigma : Double
+}
+pub fn VasicekProcess::generate_path(Self, Array[Double], @core.RngEngine) -> @core.SimPath
+pub fn VasicekProcess::new(Double, Double, Double, Double) -> Self
+pub fn VasicekProcess::step(Self, Double, Double, Double) -> Double
+pub fn VasicekProcess::zero_coupon_bond_price(Self, Double) -> Double
+
+// Type aliases
+
+// Traits
+
