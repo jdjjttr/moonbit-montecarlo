@@ -1,0 +1,43 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/qmc"
+
+// Values
+pub fn radical_inverse(Int, Int) -> Double
+
+// Errors
+
+// Types and methods
+pub struct HaltonSequence {
+  dim : Int
+  mut current_index : Int
+  scramble : Array[Double]
+}
+pub fn HaltonSequence::new(Int, UInt64) -> Self
+pub fn HaltonSequence::next_normal_point(Self) -> Array[Double]
+pub fn HaltonSequence::next_point(Self) -> Array[Double]
+
+pub struct LatticeSequence {
+  num_points : Int
+  dim : Int
+  generator : Int
+  shift : Array[Double]
+}
+pub fn LatticeSequence::new(Int, Int, Int, UInt64) -> Self
+pub fn LatticeSequence::normal_point(Self, Int) -> Array[Double]
+pub fn LatticeSequence::point(Self, Int) -> Array[Double]
+
+pub struct SobolSequence {
+  dim : Int
+  mut count : Int
+  x : Array[UInt]
+  v : Array[Array[UInt]]
+  recip : Double
+}
+pub fn SobolSequence::new(Int) -> Self
+pub fn SobolSequence::next_normal_point(Self) -> Array[Double]
+pub fn SobolSequence::next_point(Self) -> Array[Double]
+
+// Type aliases
+
+// Traits
+
