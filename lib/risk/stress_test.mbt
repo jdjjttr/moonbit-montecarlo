@@ -4,9 +4,9 @@
 ///|
 /// Stress Scenario Specification.
 pub struct StressScenario {
-  scenario_name : String
-  drift_shock : Double
-  volatility_multiplier : Double
+  pub scenario_name : String
+  pub drift_shock : Double
+  pub volatility_multiplier : Double
 }
 
 ///|
@@ -22,10 +22,10 @@ pub fn StressScenario::new(
 ///|
 /// Stress Test Result output struct for a single scenario.
 pub struct StressTestResult {
-  scenario_name : String
-  base_mean_price : Double
-  stressed_mean_price : Double
-  price_change_pct : Double
+  pub scenario_name : String
+  pub base_mean_price : Double
+  pub stressed_mean_price : Double
+  pub price_change_pct : Double
 }
 
 ///|

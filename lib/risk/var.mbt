@@ -35,7 +35,6 @@ pub fn compute_historical_var(
   confidence_level : Double,
   returns_or_pnl : Array[Double],
 ) -> VaRResult {
-  let alpha = 1.0 - confidence_level
   let losses = Array::make(returns_or_pnl.length(), 0.0)
   let mut i = 0
   while i < returns_or_pnl.length() {
