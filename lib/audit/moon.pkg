@@ -1,0 +1,10 @@
+import {
+  "jdjjttr/montecarlo/lib/core",
+  "jdjjttr/montecarlo/lib/pricing",
+  "jdjjttr/montecarlo/lib/risk",
+  "moonbitlang/core/math",
+}
+
+options(
+  is_main: false,
+)

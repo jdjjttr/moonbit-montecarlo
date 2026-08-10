@@ -1,0 +1,38 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/audit"
+
+import {
+  "jdjjttr/montecarlo/lib/core",
+  "jdjjttr/montecarlo/lib/pricing",
+  "jdjjttr/montecarlo/lib/risk",
+}
+
+// Values
+pub fn export_matrix_csv(@core.PathMatrix, Array[Double]) -> String
+
+pub fn export_option_result_json(@pricing.OptionPriceResult, String) -> String
+
+pub fn export_path_csv(@core.SimPath) -> String
+
+pub fn export_var_result_json(@risk.VaRResult) -> String
+
+pub fn generate_executive_report(String, AuditTrail, @pricing.OptionPriceResult, @risk.VaRResult) -> String
+
+// Errors
+
+// Types and methods
+pub struct AuditTrail {
+  seed : UInt64
+  num_paths : Int
+  num_steps : Int
+  path_checksum : UInt64
+  parameter_hash : UInt64
+}
+pub fn AuditTrail::new(UInt64, Int, Int, @core.PathMatrix) -> Self
+pub fn AuditTrail::to_json(Self) -> String
+pub fn AuditTrail::verify(Self, Self) -> Bool
+
+// Type aliases
+
+// Traits
+
