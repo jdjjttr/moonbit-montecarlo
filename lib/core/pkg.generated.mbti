@@ -1,0 +1,146 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/core"
+
+// Values
+pub fn norm_cdf(Double) -> Double
+
+pub fn norm_inv(Double) -> Double
+
+pub fn norm_pdf(Double) -> Double
+
+pub fn percentile(Array[Double], Double) -> Double
+
+pub fn sample_box_muller(RngEngine) -> (Double, Double)
+
+// Errors
+
+// Types and methods
+pub struct ExponentialDist {
+  rate : Double
+}
+pub fn ExponentialDist::cdf(Self, Double) -> Double
+pub fn ExponentialDist::new(Double) -> Self
+pub fn ExponentialDist::pdf(Self, Double) -> Double
+pub fn ExponentialDist::sample(Self, RngEngine) -> Double
+
+pub struct NormalDist {
+  mean : Double
+  stddev : Double
+}
+pub fn NormalDist::cdf(Self, Double) -> Double
+pub fn NormalDist::new(Double, Double) -> Self
+pub fn NormalDist::pdf(Self, Double) -> Double
+pub fn NormalDist::quantile(Self, Double) -> Double
+pub fn NormalDist::sample(Self, RngEngine) -> Double
+pub fn NormalDist::standard() -> Self
+
+pub struct PCG32 {
+  mut state : UInt64
+  inc : UInt64
+}
+pub fn PCG32::new(UInt64, UInt64) -> Self
+pub fn PCG32::next_double(Self) -> Double
+pub fn PCG32::next_u32(Self) -> UInt
+
+pub struct PathMatrix {
+  num_paths : Int
+  num_steps : Int
+  data : Array[Double]
+}
+pub fn PathMatrix::compute_checksum(Self) -> UInt64
+pub fn PathMatrix::get(Self, Int, Int) -> Double
+pub fn PathMatrix::get_path(Self, Int, Array[Double]) -> SimPath
+pub fn PathMatrix::new(Int, Int) -> Self
+pub fn PathMatrix::num_paths(Self) -> Int
+pub fn PathMatrix::num_steps(Self) -> Int
+pub fn PathMatrix::set(Self, Int, Int, Double) -> Unit
+
+pub struct PoissonDist {
+  lambda : Double
+}
+pub fn PoissonDist::new(Double) -> Self
+pub fn PoissonDist::sample(Self, RngEngine) -> Int
+
+pub enum RngEngine {
+  Xorshift(Xorshift128Plus)
+  Pcg(PCG32)
+  SplitMix(SplitMix64)
+}
+pub fn RngEngine::default(UInt64) -> Self
+pub fn RngEngine::next_double(Self) -> Double
+pub fn RngEngine::pcg(UInt64, UInt64) -> Self
+pub fn RngEngine::splitmix(UInt64) -> Self
+
+pub struct SimPath {
+  times : Array[Double]
+  values : Array[Double]
+}
+pub fn SimPath::arithmetic_mean(Self) -> Double
+pub fn SimPath::geometric_mean(Self) -> Double
+pub fn SimPath::get(Self, Int) -> Double
+pub fn SimPath::initial_value(Self) -> Double
+pub fn SimPath::length(Self) -> Int
+pub fn SimPath::max_value(Self) -> Double
+pub fn SimPath::min_value(Self) -> Double
+pub fn SimPath::new(Array[Double], Array[Double]) -> Self
+pub fn SimPath::terminal_value(Self) -> Double
+pub fn SimPath::times(Self) -> Array[Double]
+pub fn SimPath::values(Self) -> Array[Double]
+
+pub struct SplitMix64 {
+  mut state : UInt64
+}
+pub fn SplitMix64::new(UInt64) -> Self
+pub fn SplitMix64::next_double(Self) -> Double
+pub fn SplitMix64::next_u64(Self) -> UInt64
+
+pub struct StatsAccumulator {
+  mut count : Int64
+  mut mean : Double
+  mut m2 : Double
+  mut m3 : Double
+  mut m4 : Double
+  mut min_val : Double
+  mut max_val : Double
+}
+pub fn StatsAccumulator::combine(Self, Self) -> Unit
+pub fn StatsAccumulator::confidence_interval(Self, Double) -> (Double, Double)
+pub fn StatsAccumulator::count(Self) -> Int64
+pub fn StatsAccumulator::kurtosis(Self) -> Double
+pub fn StatsAccumulator::max(Self) -> Double
+pub fn StatsAccumulator::mean(Self) -> Double
+pub fn StatsAccumulator::min(Self) -> Double
+pub fn StatsAccumulator::new() -> Self
+pub fn StatsAccumulator::push(Self, Double) -> Unit
+pub fn StatsAccumulator::skewness(Self) -> Double
+pub fn StatsAccumulator::standard_error(Self) -> Double
+pub fn StatsAccumulator::stddev(Self) -> Double
+pub fn StatsAccumulator::variance(Self) -> Double
+
+pub struct StudentTDist {
+  df : Double
+}
+pub fn StudentTDist::new(Double) -> Self
+pub fn StudentTDist::sample(Self, RngEngine) -> Double
+
+pub struct UniformDist {
+  a : Double
+  b : Double
+}
+pub fn UniformDist::cdf(Self, Double) -> Double
+pub fn UniformDist::new(Double, Double) -> Self
+pub fn UniformDist::pdf(Self, Double) -> Double
+pub fn UniformDist::sample(Self, RngEngine) -> Double
+
+pub struct Xorshift128Plus {
+  mut s0 : UInt64
+  mut s1 : UInt64
+}
+pub fn Xorshift128Plus::new(UInt64) -> Self
+pub fn Xorshift128Plus::next_double(Self) -> Double
+pub fn Xorshift128Plus::next_u64(Self) -> UInt64
+
+// Type aliases
+
+// Traits
+
