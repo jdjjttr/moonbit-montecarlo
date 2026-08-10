@@ -1,0 +1,41 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/risk"
+
+// Values
+pub fn compute_expected_shortfall(Double, Array[Double]) -> CVaRResult
+
+pub fn compute_historical_var(Double, Array[Double]) -> VaRResult
+
+pub fn compute_mc_greeks(Double, Double, Double, Double, Double, Double, (Double, Double, Double, Double, Double, Double) -> Double) -> MonteCarloGreeks
+
+pub fn compute_monte_carlo_var(Double, Double, Array[Double]) -> VaRResult
+
+pub fn compute_parametric_var(Double, Double, Double) -> VaRResult
+
+// Errors
+
+// Types and methods
+pub struct CVaRResult {
+  confidence_level : Double
+  var_value : Double
+  cvar_value : Double
+}
+
+pub struct MonteCarloGreeks {
+  delta : Double
+  gamma : Double
+  vega : Double
+  theta : Double
+  rho : Double
+}
+
+pub struct VaRResult {
+  confidence_level : Double
+  var_value : Double
+  method_name : String
+}
+
+// Type aliases
+
+// Traits
+
