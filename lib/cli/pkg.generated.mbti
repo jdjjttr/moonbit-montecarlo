@@ -1,0 +1,27 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/cli"
+
+// Values
+pub fn run_simulation_batch(SimConfig) -> String
+
+// Errors
+
+// Types and methods
+pub(all) struct SimConfig {
+  asset_price : Double
+  strike_price : Double
+  risk_free_rate : Double
+  volatility : Double
+  maturity : Double
+  num_paths : Int
+  num_steps : Int
+  seed : UInt64
+  use_qmc : Bool
+  output_format : String
+}
+pub fn SimConfig::default() -> Self
+
+// Type aliases
+
+// Traits
+

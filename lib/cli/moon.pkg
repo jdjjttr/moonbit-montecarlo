@@ -1,0 +1,10 @@
+import {
+  "jdjjttr/montecarlo/lib/core",
+  "jdjjttr/montecarlo/lib/stochastic",
+  "jdjjttr/montecarlo/lib/pricing",
+  "jdjjttr/montecarlo/lib/risk",
+  "jdjjttr/montecarlo/lib/audit",
+  "moonbitlang/core/math",
+}
+
+pkgtype(kind: "executable")
