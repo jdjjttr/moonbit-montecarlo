@@ -1,0 +1,9 @@
+import {
+  "jdjjttr/montecarlo/lib/core",
+  "jdjjttr/montecarlo/lib/stochastic",
+  "moonbitlang/core/math",
+}
+
+options(
+  is_main: false,
+)

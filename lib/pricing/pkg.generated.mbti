@@ -1,0 +1,63 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/pricing"
+
+import {
+  "jdjjttr/montecarlo/lib/core",
+  "jdjjttr/montecarlo/lib/stochastic",
+}
+
+// Values
+pub fn black_scholes_delta(OptionType, Double, Double, Double, Double, Double) -> Double
+
+pub fn black_scholes_gamma(Double, Double, Double, Double, Double) -> Double
+
+pub fn black_scholes_price(OptionType, Double, Double, Double, Double, Double) -> Double
+
+pub fn price_american_option_lsm(OptionType, @stochastic.GBMProcess, Double, Double, Array[Double], Int, @core.RngEngine) -> OptionPriceResult
+
+pub fn price_asian_option_mc(OptionType, AveragingMethod, @stochastic.GBMProcess, Double, Double, Array[Double], Int, @core.RngEngine) -> OptionPriceResult
+
+pub fn price_barrier_option_mc(OptionType, BarrierType, @stochastic.GBMProcess, Double, Double, Double, Array[Double], Int, @core.RngEngine) -> OptionPriceResult
+
+pub fn price_european_option_mc(OptionType, @stochastic.GBMProcess, Double, Double, Double, Int, @core.RngEngine) -> OptionPriceResult
+
+pub fn price_lookback_option_mc(OptionType, LookbackType, @stochastic.GBMProcess, Double, Double, Array[Double], Int, @core.RngEngine) -> OptionPriceResult
+
+pub fn solve_ols_3x3(Array[Array[Double]], Array[Double]) -> Array[Double]
+
+// Errors
+
+// Types and methods
+pub(all) enum AveragingMethod {
+  Arithmetic
+  Geometric
+}
+
+pub(all) enum BarrierType {
+  DownAndOut
+  DownAndIn
+  UpAndOut
+  UpAndIn
+}
+
+pub(all) enum LookbackType {
+  FloatingStrike
+  FixedStrike
+}
+
+pub struct OptionPriceResult {
+  price : Double
+  standard_error : Double
+  ci_lower : Double
+  ci_upper : Double
+}
+
+pub(all) enum OptionType {
+  Call
+  Put
+}
+
+// Type aliases
+
+// Traits
+
