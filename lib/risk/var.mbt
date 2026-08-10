@@ -64,3 +64,24 @@ pub fn compute_monte_carlo_var(
   }
   compute_historical_var(confidence_level, pnl)
 }
+
+///|
+/// Monte Carlo Value at Risk for a GBM process.
+pub fn compute_gbm_monte_carlo_var(
+  confidence_level : Double,
+  gbm : @stochastic.GBMProcess,
+  times : Array[Double],
+  num_paths : Int,
+  rng : @core.RngEngine,
+) -> VaRResult {
+  let matrix = gbm.generate_matrix(num_paths, times, rng)
+  let terminal_step = times.length() - 1
+  let s0 = matrix.get(0, 0)
+  let terminals = Array::make(num_paths, 0.0)
+  let mut p = 0
+  while p < num_paths {
+    terminals[p] = matrix.get(p, terminal_step)
+    p = p + 1
+  }
+  compute_monte_carlo_var(confidence_level, s0, terminals)
+}

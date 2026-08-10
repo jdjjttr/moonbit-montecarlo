@@ -1,0 +1,40 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/variance_reduction"
+
+import {
+  "jdjjttr/montecarlo/lib/core",
+  "jdjjttr/montecarlo/lib/stochastic",
+}
+
+// Values
+pub fn apply_control_variate(Array[Double], Array[Double], Double) -> ControlVariateResult
+
+pub fn sample_antithetic_gbm_paths(@stochastic.GBMProcess, Array[Double], @core.RngEngine) -> (@core.SimPath, @core.SimPath)
+
+pub fn sample_importance_normal(Double, @core.RngEngine) -> ShiftedSample
+
+pub fn sample_lhs_matrix(Int, Int, @core.RngEngine) -> Array[Array[Double]]
+
+pub fn sample_stratified_normal(Int, @core.RngEngine) -> Array[Double]
+
+pub fn sample_stratified_uniform(Int, @core.RngEngine) -> Array[Double]
+
+// Errors
+
+// Types and methods
+pub struct ControlVariateResult {
+  adjusted_mean : Double
+  unadjusted_mean : Double
+  beta_star : Double
+  variance_reduction_ratio : Double
+}
+
+pub struct ShiftedSample {
+  val : Double
+  likelihood_ratio : Double
+}
+
+// Type aliases
+
+// Traits
+

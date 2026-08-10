@@ -4,9 +4,9 @@
 ///|
 /// Stress Scenario Specification.
 pub struct StressScenario {
-  pub scenario_name : String
-  pub drift_shock : Double
-  pub volatility_multiplier : Double
+  scenario_name : String
+  drift_shock : Double
+  volatility_multiplier : Double
 }
 
 ///|
@@ -22,10 +22,20 @@ pub fn StressScenario::new(
 ///|
 /// Stress Test Result output struct for a single scenario.
 pub struct StressTestResult {
-  pub scenario_name : String
-  pub base_mean_price : Double
-  pub stressed_mean_price : Double
-  pub price_change_pct : Double
+  scenario_name : String
+  base_mean_price : Double
+  stressed_mean_price : Double
+  price_change_pct : Double
+}
+
+///|
+/// Helper to construct a stressed GBM process instance.
+pub fn create_stressed_gbm(
+  s0 : Double,
+  mu : Double,
+  sigma : Double,
+) -> @stochastic.GBMProcess {
+  @stochastic.create_gbm(s0, mu, sigma)
 }
 
 ///|
@@ -58,10 +68,8 @@ pub fn run_stress_test_suite(
     let s0 = base_path_matrix.get(0, 0)
     let stressed_mu = base_gbm.generate_path([0.0], rng).initial_value() * 0.0 +
       sc.drift_shock
-    let stressed_sigma = sc.volatility_multiplier * 0.2 // Base vol scaling
-    let stressed_gbm = @stochastic.GBMProcess::new(
-      s0, stressed_mu, stressed_sigma,
-    )
+    let stressed_sigma = sc.volatility_multiplier * 0.2
+    let stressed_gbm = create_stressed_gbm(s0, stressed_mu, stressed_sigma)
 
     let str_matrix = stressed_gbm.generate_matrix(num_paths, times, rng)
     let str_stats = @core.StatsAccumulator::new()

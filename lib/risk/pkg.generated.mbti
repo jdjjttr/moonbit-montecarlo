@@ -1,8 +1,15 @@
 // Generated using `moon info`, DON'T EDIT IT
 package "jdjjttr/montecarlo/lib/risk"
 
+import {
+  "jdjjttr/montecarlo/lib/core",
+  "jdjjttr/montecarlo/lib/stochastic",
+}
+
 // Values
 pub fn compute_expected_shortfall(Double, Array[Double]) -> CVaRResult
+
+pub fn compute_gbm_monte_carlo_var(Double, @stochastic.GBMProcess, Array[Double], Int, @core.RngEngine) -> VaRResult
 
 pub fn compute_historical_var(Double, Array[Double]) -> VaRResult
 

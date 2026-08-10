@@ -17,6 +17,12 @@ pub fn GBMProcess::new(s0 : Double, mu : Double, sigma : Double) -> GBMProcess {
 }
 
 ///|
+/// Free function factory constructor for Geometric Brownian Motion.
+pub fn create_gbm(s0 : Double, mu : Double, sigma : Double) -> GBMProcess {
+  GBMProcess::new(s0, mu, sigma)
+}
+
+///|
 /// Exact analytical step transition solver for GBM.
 pub fn GBMProcess::step(
   self : GBMProcess,

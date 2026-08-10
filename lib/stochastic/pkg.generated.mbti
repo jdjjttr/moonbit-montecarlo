@@ -6,6 +6,7 @@ import {
 }
 
 // Values
+pub fn create_gbm(Double, Double, Double) -> GBMProcess
 
 // Errors
 
