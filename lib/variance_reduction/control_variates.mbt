@@ -16,7 +16,7 @@ pub struct ControlVariateResult {
 pub fn apply_control_variate(
   payoffs : Array[Double],
   controls : Array[Double],
-  expected_control : Double
+  expected_control : Double,
 ) -> ControlVariateResult {
   let n = payoffs.length()
   if n == 0 || n != controls.length() {
@@ -53,16 +53,20 @@ pub fn apply_control_variate(
     i = i + 1
   }
 
-  let beta_star = if var_y <= 1e-15 { 0.0 } else { cov_xy / var_y }
+  let beta_star = if var_y <= 1.0e-15 { 0.0 } else { cov_xy / var_y }
   let adjusted_mean = mean_x - beta_star * (mean_y - expected_control)
-  
-  let corr = if var_x * var_y <= 1e-15 { 0.0 } else { cov_xy / (var_x.sqrt() * var_y.sqrt()) }
+
+  let corr = if var_x * var_y <= 1.0e-15 {
+    0.0
+  } else {
+    cov_xy / (var_x.sqrt() * var_y.sqrt())
+  }
   let var_red_ratio = 1.0 - corr * corr
 
   {
-    adjusted_mean: adjusted_mean,
+    adjusted_mean,
     unadjusted_mean: mean_x,
-    beta_star: beta_star,
+    beta_star,
     variance_reduction_ratio: var_red_ratio,
   }
 }
