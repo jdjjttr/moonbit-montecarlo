@@ -43,3 +43,37 @@ test "jump_diffusion_positive_prices" {
   let path = jd.generate_path(times, rng)
   assert_true(path.terminal_value() > 0.0)
 }
+
+///|
+test "heston_path_generation" {
+  let heston = @stochastic.HestonProcess::new(
+    100.0, 0.04, 0.03, 2.0, 0.04, 0.3, -0.7,
+  )
+  let times = [0.0, 0.5, 1.0]
+  let rng = @core.RngEngine::default(12345UL)
+  let (s_path, v_path) = heston.generate_path(times, rng)
+  assert_true(s_path.terminal_value() > 0.0)
+  assert_true(v_path.terminal_value() >= 0.0)
+}
+
+///|
+test "sabr_hagan_implied_volatility" {
+  let sabr = @stochastic.SABRProcess::new(0.04, 0.02, 0.5, 0.3, -0.2)
+  let vol_atm = sabr.hagan_implied_volatility(0.04, 1.0)
+  assert_true(vol_atm > 0.0)
+  let vol_otm = sabr.hagan_implied_volatility(0.05, 1.0)
+  assert_true(vol_otm > 0.0)
+}
+
+///|
+test "milstein_sde_solver" {
+  let times = [0.0, 0.5, 1.0]
+  let rng = @core.RngEngine::default(42UL)
+  let drift_fn = fn(_t : Double, x : Double) -> Double { 0.05 * x }
+  let diff_fn = fn(_t : Double, x : Double) -> Double { 0.2 * x }
+  let diff_deriv_fn = fn(_t : Double, _x : Double) -> Double { 0.2 }
+  let path = @stochastic.solve_milstein_path(
+    100.0, times, drift_fn, diff_fn, diff_deriv_fn, rng,
+  )
+  assert_true(path.terminal_value() > 0.0)
+}

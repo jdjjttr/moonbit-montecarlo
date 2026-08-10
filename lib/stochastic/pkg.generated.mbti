@@ -8,6 +8,10 @@ import {
 // Values
 pub fn create_gbm(Double, Double, Double) -> GBMProcess
 
+pub fn solve_milstein_path(Double, Array[Double], (Double, Double) -> Double, (Double, Double) -> Double, (Double, Double) -> Double, @core.RngEngine) -> @core.SimPath
+
+pub fn solve_milstein_step(Double, Double, Double, Double, (Double, Double) -> Double, (Double, Double) -> Double, (Double, Double) -> Double) -> Double
+
 // Errors
 
 // Types and methods
@@ -32,6 +36,20 @@ pub fn GBMProcess::generate_path(Self, Array[Double], @core.RngEngine) -> @core.
 pub fn GBMProcess::new(Double, Double, Double) -> Self
 pub fn GBMProcess::step(Self, Double, Double, Double) -> Double
 
+pub struct HestonProcess {
+  s0 : Double
+  v0 : Double
+  mu : Double
+  kappa : Double
+  theta : Double
+  xi : Double
+  rho : Double
+}
+pub fn HestonProcess::feller_condition(Self) -> Bool
+pub fn HestonProcess::generate_path(Self, Array[Double], @core.RngEngine) -> (@core.SimPath, @core.SimPath)
+pub fn HestonProcess::new(Double, Double, Double, Double, Double, Double, Double) -> Self
+pub fn HestonProcess::step(Self, Double, Double, Double, Double, Double) -> (Double, Double)
+
 pub struct JumpDiffusionProcess {
   s0 : Double
   mu : Double
@@ -55,6 +73,16 @@ pub fn OUProcess::generate_path(Self, Array[Double], @core.RngEngine) -> @core.S
 pub fn OUProcess::new(Double, Double, Double, Double) -> Self
 pub fn OUProcess::stationary_variance(Self) -> Double
 pub fn OUProcess::step(Self, Double, Double, Double) -> Double
+
+pub struct SABRProcess {
+  f0 : Double
+  sigma0 : Double
+  beta : Double
+  alpha : Double
+  rho : Double
+}
+pub fn SABRProcess::hagan_implied_volatility(Self, Double, Double) -> Double
+pub fn SABRProcess::new(Double, Double, Double, Double, Double) -> Self
 
 pub struct VasicekProcess {
   r0 : Double

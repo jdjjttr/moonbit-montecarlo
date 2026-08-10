@@ -2,6 +2,8 @@
 package "jdjjttr/montecarlo/lib/core"
 
 // Values
+pub fn dot_product(Array[Double], Array[Double]) -> Double
+
 pub fn norm_cdf(Double) -> Double
 
 pub fn norm_inv(Double) -> Double
@@ -12,9 +14,49 @@ pub fn percentile(Array[Double], Double) -> Double
 
 pub fn sample_box_muller(RngEngine) -> (Double, Double)
 
+pub fn vector_norm(Array[Double]) -> Double
+
 // Errors
 
 // Types and methods
+pub struct BilinearSurface {
+  x_grid : Array[Double]
+  y_grid : Array[Double]
+  z_matrix : DenseMatrix
+}
+pub fn BilinearSurface::eval(Self, Double, Double) -> Double
+pub fn BilinearSurface::new(Array[Double], Array[Double], DenseMatrix) -> Self
+
+pub struct CubicSpline {
+  x : Array[Double]
+  y : Array[Double]
+  a : Array[Double]
+  b : Array[Double]
+  c : Array[Double]
+  d : Array[Double]
+}
+pub fn CubicSpline::eval(Self, Double) -> Double
+pub fn CubicSpline::new(Array[Double], Array[Double]) -> Self
+
+pub struct DenseMatrix {
+  rows : Int
+  cols : Int
+  data : Array[Double]
+}
+pub fn DenseMatrix::add(Self, Self) -> Self
+pub fn DenseMatrix::cols(Self) -> Int
+pub fn DenseMatrix::copy(Self) -> Self
+pub fn DenseMatrix::frobenius_norm(Self) -> Double
+pub fn DenseMatrix::get(Self, Int, Int) -> Double
+pub fn DenseMatrix::identity(Int) -> Self
+pub fn DenseMatrix::multiply(Self, Self) -> Self
+pub fn DenseMatrix::new(Int, Int) -> Self
+pub fn DenseMatrix::rows(Self) -> Int
+pub fn DenseMatrix::scale(Self, Double) -> Self
+pub fn DenseMatrix::set(Self, Int, Int, Double) -> Unit
+pub fn DenseMatrix::sub(Self, Self) -> Self
+pub fn DenseMatrix::transpose(Self) -> Self
+
 pub struct ExponentialDist {
   rate : Double
 }
@@ -22,6 +64,13 @@ pub fn ExponentialDist::cdf(Self, Double) -> Double
 pub fn ExponentialDist::new(Double) -> Self
 pub fn ExponentialDist::pdf(Self, Double) -> Double
 pub fn ExponentialDist::sample(Self, RngEngine) -> Double
+
+pub struct LinearInterpolator {
+  x : Array[Double]
+  y : Array[Double]
+}
+pub fn LinearInterpolator::eval(Self, Double) -> Double
+pub fn LinearInterpolator::new(Array[Double], Array[Double]) -> Self
 
 pub struct NormalDist {
   mean : Double

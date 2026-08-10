@@ -3,6 +3,7 @@ package "jdjjttr/montecarlo/lib/pricing"
 
 import {
   "jdjjttr/montecarlo/lib/core",
+  "jdjjttr/montecarlo/lib/multi_asset",
   "jdjjttr/montecarlo/lib/stochastic",
 }
 
@@ -19,9 +20,13 @@ pub fn price_asian_option_mc(OptionType, AveragingMethod, @stochastic.GBMProcess
 
 pub fn price_barrier_option_mc(OptionType, BarrierType, @stochastic.GBMProcess, Double, Double, Double, Array[Double], Int, @core.RngEngine) -> OptionPriceResult
 
+pub fn price_cliquet_option_mc(@stochastic.GBMProcess, Double, Array[Double], Double, Double, Double, Double, Int, @core.RngEngine) -> CliquetResult
+
 pub fn price_european_option_mc(OptionType, @stochastic.GBMProcess, Double, Double, Double, Int, @core.RngEngine) -> OptionPriceResult
 
 pub fn price_lookback_option_mc(OptionType, LookbackType, @stochastic.GBMProcess, Double, Double, Array[Double], Int, @core.RngEngine) -> OptionPriceResult
+
+pub fn price_rainbow_option_mc(RainbowType, @multi_asset.MultiAssetGBM, Double, Double, Array[Double], Int, @core.RngEngine) -> OptionPriceResult
 
 pub fn solve_ols_3x3(Array[Array[Double]], Array[Double]) -> Array[Double]
 
@@ -40,6 +45,12 @@ pub(all) enum BarrierType {
   UpAndIn
 }
 
+pub struct CliquetResult {
+  price : Double
+  standard_error : Double
+  average_return : Double
+}
+
 pub(all) enum LookbackType {
   FloatingStrike
   FixedStrike
@@ -55,6 +66,12 @@ pub(all) struct OptionPriceResult {
 pub(all) enum OptionType {
   Call
   Put
+}
+
+pub(all) enum RainbowType {
+  MaxOfTwo
+  MinOfTwo
+  Spread
 }
 
 // Type aliases

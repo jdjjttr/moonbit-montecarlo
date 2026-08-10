@@ -50,3 +50,21 @@ test "markdown_executive_report_generation" {
   )
   assert_true(report.length() > 0)
 }
+
+///|
+test "html_dashboard_generation" {
+  let pm = @core.PathMatrix::new(2, 2)
+  let audit = @audit.AuditTrail::new(12345UL, 2, 2, pm)
+  let opt_res : @pricing.OptionPriceResult = {
+    price: 15.0,
+    standard_error: 0.25,
+    ci_lower: 14.5,
+    ci_upper: 15.5,
+  }
+  let var_res = @risk.compute_parametric_var(0.95, 0.05, 0.2)
+  let path = @core.SimPath::new([0.0, 1.0], [100.0, 110.0])
+  let html = @audit.generate_html_dashboard_report(
+    "Dashboard Test", audit, opt_res, var_res, path,
+  )
+  assert_true(html.length() > 0)
+}

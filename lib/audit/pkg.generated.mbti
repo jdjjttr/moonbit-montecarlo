@@ -18,6 +18,8 @@ pub fn export_var_result_json(@risk.VaRResult) -> String
 
 pub fn generate_executive_report(String, AuditTrail, @pricing.OptionPriceResult, @risk.VaRResult) -> String
 
+pub fn generate_html_dashboard_report(String, AuditTrail, @pricing.OptionPriceResult, @risk.VaRResult, @core.SimPath) -> String
+
 // Errors
 
 // Types and methods

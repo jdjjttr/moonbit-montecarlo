@@ -1,6 +1,7 @@
 import {
   "jdjjttr/montecarlo/lib/core",
   "jdjjttr/montecarlo/lib/stochastic",
+  "jdjjttr/montecarlo/lib/multi_asset",
   "moonbitlang/core/math",
 }
 

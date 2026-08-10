@@ -31,3 +31,20 @@ test "stress_testing_scenarios" {
   let results = run_stress_test_suite(gbm, scenarios, times, 100, rng)
   assert_eq(results.length(), 2)
 }
+
+///|
+test "kupiec_backtesting_var" {
+  let returns = [-0.01, -0.02, 0.01, -0.04, 0.02, -0.01]
+  let bt = backtest_var(0.95, 0.03, returns)
+  assert_eq(bt.var_breaches, 1)
+  assert_true(bt.total_observations == 6)
+}
+
+///|
+test "merton_credit_risk" {
+  let res = compute_merton_default_probability(
+    100.0, 80.0, 0.05, 0.2, 1.0, 0.03,
+  )
+  assert_true(res.distance_to_default > 1.0)
+  assert_true(res.default_probability < 0.2)
+}

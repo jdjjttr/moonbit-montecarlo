@@ -74,3 +74,26 @@ test "path_matrix_checksum" {
 
   assert_eq(pm1.compute_checksum(), pm2.compute_checksum())
 }
+
+///|
+test "dense_matrix_operations" {
+  let a = @core.DenseMatrix::identity(2)
+  let b = @core.DenseMatrix::new(2, 2)
+  b.set(0, 0, 2.0)
+  b.set(1, 1, 3.0)
+  let c = a.multiply(b)
+  assert_eq(c.get(0, 0), 2.0)
+  assert_eq(c.get(1, 1), 3.0)
+}
+
+///|
+test "interpolation_linear_and_spline" {
+  let x = [0.0, 1.0, 2.0]
+  let y = [0.0, 10.0, 20.0]
+  let lin = @core.LinearInterpolator::new(x, y)
+  assert_eq(lin.eval(0.5), 5.0)
+
+  let cs = @core.CubicSpline::new(x, y)
+  let v = cs.eval(0.5)
+  assert_true(v > 4.0 && v < 6.0)
+}

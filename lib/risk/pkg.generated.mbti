@@ -7,6 +7,8 @@ import {
 }
 
 // Values
+pub fn backtest_var(Double, Double, Array[Double]) -> BacktestResult
+
 pub fn compute_expected_shortfall(Double, Array[Double]) -> CVaRResult
 
 pub fn compute_gbm_monte_carlo_var(Double, @stochastic.GBMProcess, Array[Double], Int, @core.RngEngine) -> VaRResult
@@ -15,6 +17,8 @@ pub fn compute_historical_var(Double, Array[Double]) -> VaRResult
 
 pub fn compute_mc_greeks(Double, Double, Double, Double, Double, Double, (Double, Double, Double, Double, Double, Double) -> Double) -> MonteCarloGreeks
 
+pub fn compute_merton_default_probability(Double, Double, Double, Double, Double, Double) -> MertonCreditResult
+
 pub fn compute_monte_carlo_var(Double, Double, Array[Double]) -> VaRResult
 
 pub fn compute_parametric_var(Double, Double, Double) -> VaRResult
@@ -22,10 +26,26 @@ pub fn compute_parametric_var(Double, Double, Double) -> VaRResult
 // Errors
 
 // Types and methods
+pub struct BacktestResult {
+  total_observations : Int
+  var_breaches : Int
+  expected_breaches : Double
+  breach_ratio : Double
+  kupiec_lr_stat : Double
+  p_value_approx : Double
+  traffic_light : TrafficLightZone
+}
+
 pub struct CVaRResult {
   confidence_level : Double
   var_value : Double
   cvar_value : Double
+}
+
+pub struct MertonCreditResult {
+  distance_to_default : Double
+  default_probability : Double
+  credit_spread_bps : Double
 }
 
 pub struct MonteCarloGreeks {
@@ -34,6 +54,12 @@ pub struct MonteCarloGreeks {
   vega : Double
   theta : Double
   rho : Double
+}
+
+pub(all) enum TrafficLightZone {
+  Green
+  Yellow
+  Red
 }
 
 pub struct VaRResult {
