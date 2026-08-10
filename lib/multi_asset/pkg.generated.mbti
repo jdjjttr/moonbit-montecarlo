@@ -1,0 +1,44 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jdjjttr/montecarlo/lib/multi_asset"
+
+import {
+  "jdjjttr/montecarlo/lib/core",
+}
+
+// Values
+pub fn cholesky_decompose(Matrix) -> Matrix
+
+pub fn multiply_l_vector(Matrix, Array[Double]) -> Array[Double]
+
+pub fn sample_gaussian_copula(Matrix, @core.RngEngine) -> Array[Double]
+
+pub fn sample_t_copula(Matrix, Double, @core.RngEngine) -> Array[Double]
+
+// Errors
+
+// Types and methods
+pub struct Matrix {
+  rows : Int
+  cols : Int
+  data : Array[Double]
+}
+pub fn Matrix::cols(Self) -> Int
+pub fn Matrix::get(Self, Int, Int) -> Double
+pub fn Matrix::new(Int, Int) -> Self
+pub fn Matrix::rows(Self) -> Int
+pub fn Matrix::set(Self, Int, Int, Double) -> Unit
+
+pub struct MultiAssetGBM {
+  num_assets : Int
+  s0 : Array[Double]
+  mu : Array[Double]
+  sigma : Array[Double]
+  cholesky_l : Matrix
+}
+pub fn MultiAssetGBM::generate_paths(Self, Array[Double], @core.RngEngine) -> Array[@core.SimPath]
+pub fn MultiAssetGBM::new(Array[Double], Array[Double], Array[Double], Matrix) -> Self
+
+// Type aliases
+
+// Traits
+
