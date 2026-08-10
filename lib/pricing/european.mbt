@@ -10,7 +10,7 @@ pub(all) enum OptionType {
 
 ///|
 /// Result struct holding Monte Carlo derivative pricing estimates.
-pub struct OptionPriceResult {
+pub(all) struct OptionPriceResult {
   price : Double
   standard_error : Double
   ci_lower : Double

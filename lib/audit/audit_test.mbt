@@ -24,7 +24,7 @@ test "csv_path_export_format" {
 
 ///|
 test "json_export_format" {
-  let opt_res = {
+  let opt_res : @pricing.OptionPriceResult = {
     price: 10.5,
     standard_error: 0.1,
     ci_lower: 10.3,
@@ -38,7 +38,7 @@ test "json_export_format" {
 test "markdown_executive_report_generation" {
   let pm = @core.PathMatrix::new(2, 2)
   let audit = @audit.AuditTrail::new(999UL, 2, 2, pm)
-  let opt_res = {
+  let opt_res : @pricing.OptionPriceResult = {
     price: 12.0,
     standard_error: 0.2,
     ci_lower: 11.6,

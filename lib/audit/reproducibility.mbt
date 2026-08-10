@@ -4,11 +4,11 @@
 ///|
 /// Audit Trail Metadata Struct.
 pub struct AuditTrail {
-  pub seed : UInt64
-  pub num_paths : Int
-  pub num_steps : Int
-  pub path_checksum : UInt64
-  pub parameter_hash : UInt64
+  seed : UInt64
+  num_paths : Int
+  num_steps : Int
+  path_checksum : UInt64
+  parameter_hash : UInt64
 }
 
 ///|
