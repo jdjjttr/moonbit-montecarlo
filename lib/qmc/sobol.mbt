@@ -1,19 +1,63 @@
 ///|
 /// Sobol Low-Discrepancy Sequence Generator up to 32 Dimensions.
 /// Uses Gray code generation for O(1) step computation and optimal uniform coverage.
+/// Direction numbers are constructed using Joe & Kuo primitive polynomials for all 32 dimensions.
 
 ///|
 /// Maximum number of bits used in Sobol 32-bit integer representations.
 let sobol_bits : Int = 30
 
 ///|
-/// Sobol direction numbers initialization data for dimensions 1..10.
-let primitive_polynomials : Array[UInt] = [
-  1U, 3U, 7U, 11U, 13U, 19U, 25U, 37U, 59U, 67U,
+/// Polynomial degrees s_d for dimensions 1..32.
+let poly_degrees : Array[Int] = [
+  1, 1, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+  8, 8, 8, 8, 8,
 ]
 
 ///|
-let poly_degrees : Array[Int] = [0, 1, 2, 3, 3, 4, 4, 5, 5, 6]
+/// Primitive polynomial integer coefficients a_d for dimensions 1..32.
+/// Representing binary polynomial coefficients (a_1 a_2 ... a_{s-1})_2.
+let poly_coefficients : Array[UInt] = [
+  0U, 0U, 1U, 1U, 2U, 1U, 4U, 2U, 14U, 18U, 1U, 13U, 19U, 25U, 26U, 31U, 1U, 4U,
+  7U, 8U, 14U, 19U, 21U, 22U, 25U, 28U, 31U, 8U, 13U, 14U, 22U, 25U,
+]
+
+///|
+/// Initial direction numbers m_{d, j} for dimensions 1..32 up to degree s_d.
+let init_m_data : Array[Array[UInt]] = [
+  [1U],
+  [1U],
+  [1U, 3U],
+  [1U, 3U, 5U],
+  [1U, 1U, 7U],
+  [1U, 3U, 7U, 5U],
+  [1U, 3U, 3U, 15U],
+  [1U, 1U, 3U, 13U, 11U],
+  [1U, 3U, 7U, 9U, 31U],
+  [1U, 3U, 1U, 27U, 15U],
+  [1U, 1U, 5U, 11U, 27U, 29U],
+  [1U, 3U, 1U, 15U, 17U, 9U],
+  [1U, 1U, 7U, 9U, 29U, 31U],
+  [1U, 3U, 3U, 13U, 25U, 17U],
+  [1U, 3U, 7U, 15U, 23U, 15U],
+  [1U, 1U, 5U, 11U, 19U, 21U],
+  [1U, 3U, 1U, 9U, 7U, 33U, 85U],
+  [1U, 3U, 7U, 13U, 13U, 115U, 41U],
+  [1U, 1U, 3U, 11U, 19U, 99U, 21U],
+  [1U, 1U, 5U, 13U, 27U, 39U, 93U],
+  [1U, 3U, 5U, 15U, 17U, 61U, 77U],
+  [1U, 1U, 7U, 11U, 13U, 15U, 119U],
+  [1U, 3U, 1U, 13U, 23U, 87U, 95U],
+  [1U, 3U, 7U, 9U, 31U, 41U, 15U],
+  [1U, 1U, 3U, 15U, 19U, 113U, 85U],
+  [1U, 3U, 1U, 11U, 27U, 69U, 97U],
+  [1U, 3U, 5U, 9U, 1U, 21U, 63U],
+  [1U, 1U, 7U, 13U, 11U, 117U, 33U, 201U],
+  [1U, 3U, 3U, 15U, 25U, 45U, 115U, 63U],
+  [1U, 3U, 7U, 9U, 31U, 81U, 15U, 185U],
+  [1U, 1U, 5U, 11U, 19U, 59U, 107U, 241U],
+  [1U, 3U, 1U, 13U, 23U, 73U, 55U, 159U],
+]
 
 ///|
 /// Sobol Sequence Generator Struct.
@@ -42,19 +86,18 @@ pub fn SobolSequence::new(dim : Int) -> SobolSequence {
   }
   v[0] = v0
 
-  // Higher dimensions setup
+  // Higher dimensions setup (Dimensions 1..31 corresponding to 2..32)
   let mut d = 1
   while d < clamped_dim {
     let vd = Array::make(sobol_bits, 0U)
-    let poly_idx = d % 10
-    let poly = primitive_polynomials[poly_idx]
-    let s = poly_degrees[poly_idx]
+    let s = poly_degrees[d]
+    let a = poly_coefficients[d]
+    let m = init_m_data[d]
 
     // Initial m_i values
     let mut i = 0
     while i < s && i < sobol_bits {
-      let idx_u = (i + 1).reinterpret_as_uint()
-      vd[i] = (idx_u * 2U + 1U) << (sobol_bits - 1 - i)
+      vd[i] = m[i] << (sobol_bits - 1 - i)
       i = i + 1
     }
 
@@ -64,7 +107,7 @@ pub fn SobolSequence::new(dim : Int) -> SobolSequence {
       let mut new_v = vd[i - s] ^ (vd[i - s] >> s)
       let mut k = 1
       while k < s {
-        if ((poly >> (s - k)) & 1U) != 0U {
+        if ((a >> (s - 1 - k)) & 1U) != 0U {
           new_v = new_v ^ vd[i - k]
         }
         k = k + 1

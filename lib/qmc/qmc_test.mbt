@@ -33,6 +33,20 @@ test "sobol_sequence_bounds" {
 }
 
 ///|
+test "sobol_32_dimensions_full_coverage" {
+  let sob = @qmc.SobolSequence::new(32)
+  let pt = sob.next_point()
+  assert_eq(pt.length(), 32)
+  let pt2 = sob.next_point()
+  assert_eq(pt2.length(), 32)
+  let mut d = 0
+  while d < 32 {
+    assert_true(pt2[d] >= 0.0 && pt2[d] < 1.0)
+    d = d + 1
+  }
+}
+
+///|
 test "lattice_sequence_points" {
   let lat = @qmc.LatticeSequence::new(1021, 2, 76, 0UL)
   let p0 = lat.point(0)
